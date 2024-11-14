@@ -1,0 +1,4 @@
+openapi-generator-cli
+web3
+python-dateutil
+requests
