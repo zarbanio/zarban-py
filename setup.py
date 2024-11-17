@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="zarban",
-    version="0.4",
+    version="0.4.1",
     author="Zarban",
     author_email="info@zarban.io",
     description="Python SDK for Zarban",
