@@ -16,6 +16,7 @@ from zarban.service.openapi_client.api.permit_api import PermitApi
 from zarban.service.openapi_client.api.points_api import PointsApi
 from zarban.service.openapi_client.api.prices_api import PricesApi
 from zarban.service.openapi_client.api.stable_coin_system_api import StableCoinSystemApi
+from zarban.service.openapi_client.api.staking_api import StakingApi
 from zarban.service.openapi_client.api.swap_api import SwapApi
 from zarban.service.openapi_client.api.vaults_api import VaultsApi
 from zarban.service.openapi_client.api.websocket_api import WebsocketApi

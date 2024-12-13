@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **gas_fee_estimate** | **dict(str, str)** |  | 
 **route_string** | **str** |  | 
 **method_parameters** | [**MethodParameters**](MethodParameters.md) |  | [optional] 
-**route** | [**list[V3PoolInRoute]**](V3PoolInRoute.md) |  | 
+**route** | [**list[RouteItem]**](RouteItem.md) |  | 
 **order_info** | [**OrderInfo**](OrderInfo.md) |  | [optional] 
 **encoded_order** | **str** |  | [optional] 
 **order_hash** | **str** |  | [optional] 

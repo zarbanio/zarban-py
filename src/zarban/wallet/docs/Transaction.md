@@ -9,7 +9,8 @@ Name | Type | Description | Notes
 **_from** | **str** | The ID of the user from whom the transaction originated | 
 **to** | **str** | The ID of the user to whom the transaction is directed | 
 **symbol** | [**Symbol**](Symbol.md) |  | 
-**amount** | **dict(str, str)** |  | 
+**amount** | [**Currency**](Currency.md) |  | 
+**direction** | **str** | Equal to \&quot;Inbound\&quot; if the transaction is directed to the user, and \&quot;Outbound\&quot; if the transaction is directed from the user. | 
 **external_transaction** | [**ExternalTransaction**](ExternalTransaction.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

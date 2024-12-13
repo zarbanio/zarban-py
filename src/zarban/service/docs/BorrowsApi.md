@@ -1,14 +1,14 @@
-# openapi_client.BorrowsApi
+# zarban.service.openapi_client.BorrowsApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**lendingpool_borrows_get**](BorrowsApi.md#lendingpool_borrows_get) | **GET** /lendingpool/borrows | Get user borrows of lendingpool
+[**get_user_borrows**](BorrowsApi.md#get_user_borrows) | **GET** /v2/lendingpool/borrows | Get user borrows of lendingpool
 
 
-# **lendingpool_borrows_get**
-> list[LendingpoolBorrow] lendingpool_borrows_get(user=user, reserve=reserve, cursor=cursor, limit=limit)
+# **get_user_borrows**
+> UserBorrowsResponse get_user_borrows(user=user, reserve=reserve, cursor=cursor, limit=limit)
 
 Get user borrows of lendingpool
 
@@ -19,20 +19,20 @@ Get user borrows of lendingpool
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.BorrowsApi(api_client)
+    api_instance = zarban.service.openapi_client.BorrowsApi(api_client)
     user = 'user_example' # str | Ethereum address of the user (optional)
 reserve = 'reserve_example' # str | Ethereum address of the reserve (optional)
 cursor = 56 # int | Cursor for pagination (optional)
@@ -40,10 +40,10 @@ limit = 50 # int | Limit the number of deposits returned (default is 50) (option
 
     try:
         # Get user borrows of lendingpool
-        api_response = api_instance.lendingpool_borrows_get(user=user, reserve=reserve, cursor=cursor, limit=limit)
+        api_response = api_instance.get_user_borrows(user=user, reserve=reserve, cursor=cursor, limit=limit)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling BorrowsApi->lendingpool_borrows_get: %s\n" % e)
+        print("Exception when calling BorrowsApi->get_user_borrows: %s\n" % e)
 ```
 
 ### Parameters
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[LendingpoolBorrow]**](LendingpoolBorrow.md)
+[**UserBorrowsResponse**](UserBorrowsResponse.md)
 
 ### Authorization
 

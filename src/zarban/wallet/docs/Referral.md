@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **usage_count** | **int** |  | 
 **created_at** | [**Timestamp**](Timestamp.md) |  | 
 **link** | **str** |  | [optional] 
+**share_url** | **str** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

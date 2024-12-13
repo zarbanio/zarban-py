@@ -1,15 +1,15 @@
-# openapi_client.OrdersApi
+# zarban.service.openapi_client.OrdersApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**orders_get**](OrdersApi.md#orders_get) | **GET** /orders | Fetch Unfilled Orders
-[**orders_sync_post**](OrdersApi.md#orders_sync_post) | **POST** /orders/sync | Updates Order Entity
+[**get_unfilled_orders**](OrdersApi.md#get_unfilled_orders) | **GET** /v2/orders | Fetch Unfilled Orders
+[**sync_order**](OrdersApi.md#sync_order) | **POST** /v2/orders/sync | Updates Order Entity
 
 
-# **orders_get**
-> list[Order] orders_get(type=type, hash=hash, status=status, offerer=offerer, filler=filler, decay_start_time=decay_start_time, decay_end_time=decay_end_time, deadline=deadline, cursor=cursor, limit=limit)
+# **get_unfilled_orders**
+> OrderResponse get_unfilled_orders(type=type, hash=hash, status=status, offerer=offerer, filler=filler, decay_start_time=decay_start_time, decay_end_time=decay_end_time, deadline=deadline, cursor=cursor, limit=limit)
 
 Fetch Unfilled Orders
 
@@ -20,37 +20,37 @@ Get a list of unfilled orders filtered by different parameters.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.OrdersApi(api_client)
+    api_instance = zarban.service.openapi_client.OrdersApi(api_client)
     type = 'type_example' # str | Type of the order (optional)
 hash = 'hash_example' # str | order hash (optional)
 status = 'status_example' # str | Status of the order (optional)
 offerer = 'offerer_example' # str | Ethereum address of the offerer (optional)
 filler = 'filler_example' # str | Ethereum address of the filler (optional)
-decay_start_time = openapi_client.TimeRange() # TimeRange | Decay start time (optional)
-decay_end_time = openapi_client.TimeRange() # TimeRange | Decay end time (optional)
-deadline = openapi_client.TimeRange() # TimeRange | Order deadline (optional)
+decay_start_time = zarban.service.openapi_client.TimeRange() # TimeRange | Decay start time (optional)
+decay_end_time = zarban.service.openapi_client.TimeRange() # TimeRange | Decay end time (optional)
+deadline = zarban.service.openapi_client.TimeRange() # TimeRange | Order deadline (optional)
 cursor = 56 # int | Cursor for pagination (optional)
 limit = 10 # int | Limit the number of orders returned (default is 10) (optional) (default to 10)
 
     try:
         # Fetch Unfilled Orders
-        api_response = api_instance.orders_get(type=type, hash=hash, status=status, offerer=offerer, filler=filler, decay_start_time=decay_start_time, decay_end_time=decay_end_time, deadline=deadline, cursor=cursor, limit=limit)
+        api_response = api_instance.get_unfilled_orders(type=type, hash=hash, status=status, offerer=offerer, filler=filler, decay_start_time=decay_start_time, decay_end_time=decay_end_time, deadline=deadline, cursor=cursor, limit=limit)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling OrdersApi->orders_get: %s\n" % e)
+        print("Exception when calling OrdersApi->get_unfilled_orders: %s\n" % e)
 ```
 
 ### Parameters
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[Order]**](Order.md)
+[**OrderResponse**](OrderResponse.md)
 
 ### Authorization
 
@@ -90,8 +90,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **orders_sync_post**
-> Error orders_sync_post(update_order_request)
+# **sync_order**
+> Error sync_order(update_order_request)
 
 Updates Order Entity
 
@@ -102,28 +102,28 @@ updates an order entity in database
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.OrdersApi(api_client)
-    update_order_request = openapi_client.UpdateOrderRequest() # UpdateOrderRequest | 
+    api_instance = zarban.service.openapi_client.OrdersApi(api_client)
+    update_order_request = zarban.service.openapi_client.UpdateOrderRequest() # UpdateOrderRequest | 
 
     try:
         # Updates Order Entity
-        api_response = api_instance.orders_sync_post(update_order_request)
+        api_response = api_instance.sync_order(update_order_request)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling OrdersApi->orders_sync_post: %s\n" % e)
+        print("Exception when calling OrdersApi->sync_order: %s\n" % e)
 ```
 
 ### Parameters
