@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **_from** | **str** | The address from which the transaction originated | 
 **to** | **str** | The address to which the transaction is sent | 
 **comment** | **str** | A comment associated with the transaction | 
-**amount** | **dict(str, str)** |  | 
+**amount** | [**Currency**](Currency.md) |  | 
 **symbol** | [**Symbol**](Symbol.md) |  | 
 **network** | [**Network**](Network.md) |  | 
 **status** | [**TransactionStatus**](TransactionStatus.md) |  | 

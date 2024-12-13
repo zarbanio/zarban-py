@@ -1,15 +1,15 @@
-# openapi_client.IlksApi
+# zarban.service.openapi_client.IlksApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ilks_get**](IlksApi.md#ilks_get) | **GET** /ilks | Get all Ilks
-[**ilks_name_get**](IlksApi.md#ilks_name_get) | **GET** /ilks/{name} | Get Ilk by name
+[**get_all_ilks**](IlksApi.md#get_all_ilks) | **GET** /v2/ilks | Get all Ilks
+[**get_ilk_by_name**](IlksApi.md#get_ilk_by_name) | **GET** /v2/ilks/{name} | Get Ilk by name
 
 
-# **ilks_get**
-> list[Ilk] ilks_get()
+# **get_all_ilks**
+> IlksResponse get_all_ilks()
 
 Get all Ilks
 
@@ -20,27 +20,27 @@ Retrieve a list of all available ilks.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.IlksApi(api_client)
+    api_instance = zarban.service.openapi_client.IlksApi(api_client)
     
     try:
         # Get all Ilks
-        api_response = api_instance.ilks_get()
+        api_response = api_instance.get_all_ilks()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling IlksApi->ilks_get: %s\n" % e)
+        print("Exception when calling IlksApi->get_all_ilks: %s\n" % e)
 ```
 
 ### Parameters
@@ -48,7 +48,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[Ilk]**](Ilk.md)
+[**IlksResponse**](IlksResponse.md)
 
 ### Authorization
 
@@ -67,8 +67,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **ilks_name_get**
-> Ilk ilks_name_get(name)
+# **get_ilk_by_name**
+> Ilk get_ilk_by_name(name)
 
 Get Ilk by name
 
@@ -79,28 +79,28 @@ Retrieve an Ilk by providing its name.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.IlksApi(api_client)
+    api_instance = zarban.service.openapi_client.IlksApi(api_client)
     name = 'name_example' # str | Name of the ILK
 
     try:
         # Get Ilk by name
-        api_response = api_instance.ilks_name_get(name)
+        api_response = api_instance.get_ilk_by_name(name)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling IlksApi->ilks_name_get: %s\n" % e)
+        print("Exception when calling IlksApi->get_ilk_by_name: %s\n" % e)
 ```
 
 ### Parameters

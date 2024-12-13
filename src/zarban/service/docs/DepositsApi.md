@@ -1,14 +1,14 @@
-# openapi_client.DepositsApi
+# zarban.service.openapi_client.DepositsApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**lendingpool_deposits_get**](DepositsApi.md#lendingpool_deposits_get) | **GET** /lendingpool/deposits | Get user deposits of Lendingpool
+[**get_user_deposits**](DepositsApi.md#get_user_deposits) | **GET** /v2/lendingpool/deposits | Get user deposits of Lendingpool
 
 
-# **lendingpool_deposits_get**
-> list[LendingpoolDeposit] lendingpool_deposits_get(user=user, reserve=reserve, cursor=cursor, limit=limit)
+# **get_user_deposits**
+> UserDepositsResponse get_user_deposits(user=user, reserve=reserve, cursor=cursor, limit=limit)
 
 Get user deposits of Lendingpool
 
@@ -19,20 +19,20 @@ Get user deposits of Lendingpool
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.DepositsApi(api_client)
+    api_instance = zarban.service.openapi_client.DepositsApi(api_client)
     user = 'user_example' # str | Ethereum address of the user (optional)
 reserve = 'reserve_example' # str | Ethereum address of the reserve (optional)
 cursor = 56 # int | Cursor for pagination (optional)
@@ -40,10 +40,10 @@ limit = 50 # int | Limit the number of deposits returned (default is 50) (option
 
     try:
         # Get user deposits of Lendingpool
-        api_response = api_instance.lendingpool_deposits_get(user=user, reserve=reserve, cursor=cursor, limit=limit)
+        api_response = api_instance.get_user_deposits(user=user, reserve=reserve, cursor=cursor, limit=limit)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DepositsApi->lendingpool_deposits_get: %s\n" % e)
+        print("Exception when calling DepositsApi->get_user_deposits: %s\n" % e)
 ```
 
 ### Parameters
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[LendingpoolDeposit]**](LendingpoolDeposit.md)
+[**UserDepositsResponse**](UserDepositsResponse.md)
 
 ### Authorization
 

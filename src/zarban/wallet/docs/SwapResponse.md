@@ -10,12 +10,12 @@ Name | Type | Description | Notes
 **amount** | **str** |  | 
 **quote** | **str** |  | 
 **rate** | **str** |  | 
-**value** | **dict(str, str)** |  | 
 **input_balance_after_swap** | **str** |  | [optional] 
 **output_balance_after_swap** | **str** |  | [optional] 
 **created_at** | [**Timestamp**](Timestamp.md) |  | 
 **expires_at** | [**Timestamp**](Timestamp.md) |  | 
 **executed_at** | [**Timestamp**](Timestamp.md) |  | [optional] 
+**value** | [**Currency**](Currency.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

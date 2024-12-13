@@ -1,14 +1,14 @@
-# openapi_client.PermitApi
+# zarban.service.openapi_client.PermitApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**permit_single_get**](PermitApi.md#permit_single_get) | **GET** /permit/single | Get permit for single token
+[**get_single_token_permit**](PermitApi.md#get_single_token_permit) | **GET** /v2/permit/single | Get permit for single token
 
 
-# **permit_single_get**
-> PermitSingle permit_single_get(token, user)
+# **get_single_token_permit**
+> PermitSingle get_single_token_permit(token, user)
 
 Get permit for single token
 
@@ -19,29 +19,29 @@ Get permit for single token
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.PermitApi(api_client)
+    api_instance = zarban.service.openapi_client.PermitApi(api_client)
     token = 'token_example' # str | Ethereum address of the token
 user = 'user_example' # str | Ethereum address of the user
 
     try:
         # Get permit for single token
-        api_response = api_instance.permit_single_get(token, user)
+        api_response = api_instance.get_single_token_permit(token, user)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling PermitApi->permit_single_get: %s\n" % e)
+        print("Exception when calling PermitApi->get_single_token_permit: %s\n" % e)
 ```
 
 ### Parameters

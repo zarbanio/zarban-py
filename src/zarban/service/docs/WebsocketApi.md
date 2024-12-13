@@ -1,14 +1,14 @@
-# openapi_client.WebsocketApi
+# zarban.service.openapi_client.WebsocketApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ws_get**](WebsocketApi.md#ws_get) | **GET** /ws | Websocket Upgrade
+[**get_unfilled_orders_websocket**](WebsocketApi.md#get_unfilled_orders_websocket) | **GET** /v2/ws | Websocket Upgrade
 
 
-# **ws_get**
-> ws_get()
+# **get_unfilled_orders_websocket**
+> get_unfilled_orders_websocket()
 
 Websocket Upgrade
 
@@ -19,26 +19,26 @@ Upgrade to websocket connection
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.WebsocketApi(api_client)
+    api_instance = zarban.service.openapi_client.WebsocketApi(api_client)
     
     try:
         # Websocket Upgrade
-        api_instance.ws_get()
+        api_instance.get_unfilled_orders_websocket()
     except ApiException as e:
-        print("Exception when calling WebsocketApi->ws_get: %s\n" % e)
+        print("Exception when calling WebsocketApi->get_unfilled_orders_websocket: %s\n" % e)
 ```
 
 ### Parameters

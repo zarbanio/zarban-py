@@ -1,14 +1,14 @@
-# openapi_client.CollectorApi
+# zarban.service.openapi_client.CollectorApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**stats_get**](CollectorApi.md#stats_get) | **GET** /stats | Get collector data
+[**get_collector_data**](CollectorApi.md#get_collector_data) | **GET** /v2/stats | Get collector data
 
 
-# **stats_get**
-> Stats stats_get()
+# **get_collector_data**
+> Stats get_collector_data()
 
 Get collector data
 
@@ -19,27 +19,27 @@ Get collector data
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.CollectorApi(api_client)
+    api_instance = zarban.service.openapi_client.CollectorApi(api_client)
     
     try:
         # Get collector data
-        api_response = api_instance.stats_get()
+        api_response = api_instance.get_collector_data()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling CollectorApi->stats_get: %s\n" % e)
+        print("Exception when calling CollectorApi->get_collector_data: %s\n" % e)
 ```
 
 ### Parameters

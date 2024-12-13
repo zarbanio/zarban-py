@@ -1,14 +1,14 @@
-# openapi_client.AccountsApi
+# zarban.service.openapi_client.AccountsApi
 
 All URIs are relative to *https://api.zarban.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accounts_address_get**](AccountsApi.md#accounts_address_get) | **GET** /accounts/{address} | Get account by address
+[**get_account_by_address**](AccountsApi.md#get_account_by_address) | **GET** /v2/accounts/{address} | Get account by address
 
 
-# **accounts_address_get**
-> Account accounts_address_get(address)
+# **get_account_by_address**
+> Account get_account_by_address(address)
 
 Get account by address
 
@@ -19,28 +19,28 @@ Get account by address
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import zarban.service.openapi_client
+from zarban.service.openapi_client.rest import ApiException
 from pprint import pprint
 # Defining the host is optional and defaults to https://api.zarban.io
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
+configuration = zarban.service.openapi_client.Configuration(
     host = "https://api.zarban.io"
 )
 
 
 # Enter a context with an instance of the API client
-with openapi_client.ApiClient() as api_client:
+with zarban.service.openapi_client.ApiClient() as api_client:
     # Create an instance of the API class
-    api_instance = openapi_client.AccountsApi(api_client)
+    api_instance = zarban.service.openapi_client.AccountsApi(api_client)
     address = '0x1234567890123456789012345678901234567890' # str | Ethereum address of the account
 
     try:
         # Get account by address
-        api_response = api_instance.accounts_address_get(address)
+        api_response = api_instance.get_account_by_address(address)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling AccountsApi->accounts_address_get: %s\n" % e)
+        print("Exception when calling AccountsApi->get_account_by_address: %s\n" % e)
 ```
 
 ### Parameters
