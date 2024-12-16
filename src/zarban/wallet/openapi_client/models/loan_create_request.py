@@ -96,7 +96,7 @@ class LoanCreateRequest(object):
         """
         if self.local_vars_configuration.client_side_validation and intent is None:  # noqa: E501
             raise ValueError("Invalid value for `intent`, must not be `None`")  # noqa: E501
-        allowed_values = ["create", "preview"]  # noqa: E501
+        allowed_values = ["Create", "Preview"]  # noqa: E501
         if self.local_vars_configuration.client_side_validation and intent not in allowed_values:  # noqa: E501
             raise ValueError(
                 "Invalid value for `intent` ({0}), must be one of {1}"  # noqa: E501

@@ -138,7 +138,7 @@ def get_address_from_private_key(private_key):
 
 def get_logs(tx_hash):
     base_url = "https://testapi.zarban.io"  
-    endpoint = f"/v2/logs/{tx_hash}"
+    endpoint = f"/v2/logs/{tx_hash}" 
     
     response = requests.get(base_url + endpoint)
     
@@ -231,7 +231,7 @@ if __name__ == '__main__':
     configuration           = Configuration(host="https://testapi.zarban.io")
     api_client              = ApiClient(configuration)
     stable_coin_system_api  = StableCoinSystemApi(api_client)
-     # Setup Web3 connection
+    # Setup Web3 connection
     w3 = Web3(Web3.HTTPProvider(HTTPS_RPC_URL, request_kwargs={'timeout': 30}))
     
     # Verify connection

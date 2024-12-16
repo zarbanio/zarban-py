@@ -1,15 +1,14 @@
-from zarban.wallet.openapi_client import DefaultApi, ApiClient, Configuration
-from zarban.wallet.openapi_client.models import LoanCreateRequest
-from zarban.wallet.openapi_client.exceptions import ApiException
+import zarban.wallet.openapi_client as wallet
+
 
 def create_loan(
-    api_instance, 
-    plan_name, 
-    collateral, 
-    debt, 
-    symbol, 
-    loan_to_value_option):
-    loan_request = LoanCreateRequest(
+        loans_api: wallet.LoansApi,
+        plan_name,
+        collateral,
+        debt,
+        symbol,
+        loan_to_value_option):
+    loan_request = wallet.LoanCreateRequest(
         intent="Create",
         plan_name=plan_name,
         collateral=collateral,
@@ -19,74 +18,70 @@ def create_loan(
     )
 
     try:
-        api_response = api_instance.loans_create_post(loan_request)
+        api_response = loans_api.create_loan_vault(loan_request)
         print("Loan created successfully. Loan ID:", api_response.id)
         return api_response.id
-    except ApiException as e:
-        print("Exception when calling DefaultApi->loans_create_post: %s\n" % e)
+    except wallet.ApiException as e:
+        print("Exception when calling loans_api->create_loan_vault: %s\n" % e)
         return None
 
 
-def loan_Status(api_instance, loan_id):
+def loan_status(loans_api: wallet.LoansApi, loan_id):
     try:
-        loan_details = api_instance.loans_id_get(loan_id)
+        loan_details = loans_api.get_loan_details(loan_id)
         print(f"Loan Details for ID {loan_id}:")
-        print(f"Status: {loan_details.status}")
+        print(f"User ID: ${loan_details.user_id}")
+        print(f"State: {loan_details.state}")
         print(f"Collateral: {loan_details.collateral}")
         print(f"Debt: {loan_details.debt}")
-        print(f"Interest Rate: {loan_details.interest_rate}")
-        print(f"Creation Date: {loan_details.created_at}")
+        print(f"Liquidation Price: {loan_details.liquidation_price}")
+        print(f"Loan To Value: {loan_details.loan_to_value}")
         return loan_details
-    except ApiException as e:
-        print(f"Exception when calling DefaultApi->loans_id_get: %s\n" % e)
+    except wallet.ApiException as e:
+        print(f"Exception when calling loans_api->get_loan_details: %s\n" % e)
         return None
+
 
 def main():
     # Replace with your actual access token
-    ACCESS_TOKEN = "your_access_token_here"
+    ACCESS_TOKEN = "your_child_username"
 
     # Setup API client
-    configuration = Configuration(host="https://testwapi.zarban.io")
-    configuration.access_token = ACCESS_TOKEN
-    api_client = ApiClient(configuration)
-    api_instance = DefaultApi(api_client)
+    cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+    cfg.access_token = ACCESS_TOKEN
+    api_client = wallet.ApiClient(cfg)
+    loans_api = wallet.LoansApi(api_client)
 
     # Set the X-Child-User header in the api_client's default headers
     api_client.default_headers['X-Child-User'] = "your_child_username"
 
     # Loan creation parameters, Replace them with yout actual data
     # *** either collateral or debt must be empty ***
-    PLAN_NAME             = "DAIA"   # Only DAIA and DAIB supported
-    COLLATERAL            = "1000"   # Amount of collateral
-    DEBT                  = ""       # Amount of debt
-    SYMBOL                = "USDT"   # Coin symbol
-    LOAN_TO_VALUE_OPTIONS = "Safe"   # Risky - Normal - Safe
+    PLAN_NAME = "DAIA"  # Only DAIA and DAIB supported
+    COLLATERAL = "1000"  # Amount of collateral
+    DEBT = ""  # Amount of debt
+    SYMBOL = "DAI"  # Coin symbol
+    LOAN_TO_VALUE_OPTIONS = "Safe"  # Risky - Normal - Safe
 
-    
     # Create loan
-    loan_id = create_loan(api_instance, PLAN_NAME, COLLATERAL, DEBT, SYMBOL, LOAN_TO_VALUE_OPTIONS)
-    
+    loan_id = create_loan(loans_api, PLAN_NAME, COLLATERAL, DEBT, SYMBOL, LOAN_TO_VALUE_OPTIONS)
+
     # Remove the X-Child-User header after use
     api_client.default_headers.pop('X-Child-User', None)
 
-
     if loan_id:
         print(f"Loan created with ID: {loan_id}")
-        
+
         # Track loan status
         print("\nTracking loan status...")
-        loan_details = loan_Status(api_instance, loan_id)
-        
+        loan_details = loan_status(loans_api, loan_id)
+
         if loan_details:
             # You can add more specific actions based on the loan status
-            if loan_details.status == "active":
-                print("Loan is active.")
-            elif loan_details.status == "closed":
-                print("Loan has been closed.")
-            else:
-                print(f"Loan status: {loan_details.status}")
+            print(f"Loan state: {loan_details.state}")
     else:
         print("Failed to create loan")
+
 
 if __name__ == "__main__":
     main()
