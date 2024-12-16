@@ -232,7 +232,7 @@ if __name__ == '__main__':
     api_client              = ApiClient(configuration)
     stable_coin_system_api  = StableCoinSystemApi(api_client)
     # Setup Web3 connection
-    w3 = Web3(new Web3.providers.HttpProvider(HTTPS_RPC_URL, options)))
+    w3 = Web3(Web3.HTTPProvider(HTTPS_RPC_URL, request_kwargs={'timeout': 30}))
     
     # Verify connection
     if not w3.is_connected():

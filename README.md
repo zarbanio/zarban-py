@@ -77,7 +77,7 @@ print(response)
 
 ## Usage Examples
 
-For detailed usage examples, see our [Examples Documentation](docs).
+For detailed usage examples, see our [Examples Documentation](docs/examples).
 
 ### Advanced Usage
 
