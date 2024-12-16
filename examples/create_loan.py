@@ -21,7 +21,7 @@ def create_loan(
         api_response = loans_api.create_loan_vault(loan_request)
         print("Loan created successfully. Loan ID:", api_response.id)
         return api_response.id
-    except wallet.exceptions.ApiException as e:
+    except wallet.ApiException as e:
         print("Exception when calling loans_api->create_loan_vault: %s\n" % e)
         return None
 
@@ -37,7 +37,7 @@ def loan_status(loans_api: wallet.LoansApi, loan_id):
         print(f"Liquidation Price: {loan_details.liquidation_price}")
         print(f"Loan To Value: {loan_details.loan_to_value}")
         return loan_details
-    except wallet.exceptions.ApiException as e:
+    except wallet.ApiException as e:
         print(f"Exception when calling loans_api->get_loan_details: %s\n" % e)
         return None
 

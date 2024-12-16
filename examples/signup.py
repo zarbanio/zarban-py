@@ -25,7 +25,7 @@ def signup_example():
         print("Confirmation link sent successfully!")
         print(f"Message: {api_response.messages}")
 
-    except wallet.exceptions.ApiException as e:
+    except wallet.ApiException as e:
         print(f"Exception when calling auth_api->signup_with_email_and_password: {e}")
         print(f"Error message: {e.body}")
 

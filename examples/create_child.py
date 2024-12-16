@@ -48,7 +48,7 @@ def child_creation_example():
         # Remove the X-Child-User header after use
         api_client.default_headers.pop('X-Child-User', None)
 
-    except wallet.exceptions.ApiException as e:
+    except wallet.ApiException as e:
         pprint(f"API Exception: {e}")
         pprint(f"Status code: {e.status}")
         pprint(f"Reason: {e.reason}")

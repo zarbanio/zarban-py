@@ -1,21 +1,22 @@
-from zarban.wallet.openapi_client import DefaultApi, ApiClient, Configuration
-from zarban.wallet.openapi_client.models import RepayLoanRequest
-from zarban.wallet.openapi_client.exceptions import ApiException
+import zarban.wallet.openapi_client as wallet
+
 import time
 
-def repay_loan(api_instance, loan_id, intent="Repay"):
-    repay_request = RepayLoanRequest(
+
+def repay_loan(loans_api: wallet.LoansApi, loan_id, intent="Repay"):
+    repay_request = wallet.RepayLoanRequest(
         intent=intent,
         loan_id=loan_id
     )
 
     try:
-        api_response = api_instance.loans_repay_post(repay_request)
+        api_response = loans_api.repay_loan(repay_request)
         print(f"Loan repayment {intent.lower()} successful. Loan ID:", api_response.id)
         return api_response
-    except ApiException as e:
-        print(f"Exception when calling DefaultApi->loans_repay_post: %s\n" % e)
+    except wallet.ApiException as e:
+        print(f"Exception when calling loans_api->repay_loan: %s\n" % e)
         return None
+
 
 def get_loan_status(loan_details, loan_id):
     try:
@@ -29,19 +30,20 @@ def get_loan_status(loan_details, loan_id):
         print(f"Debt: {loan_details.debt}")
         print(f"Loan Plan: {loan_details.plan}")
         return loan_details
-    except ApiException as e:
+    except wallet.ApiException as e:
         print(f"Exception when calling DefaultApi->loans_id_get: %s\n" % e)
         return None
+
 
 def main():
     # Replace with your actual access token
     ACCESS_TOKEN = "your_access_token_here"
 
     # Setup API client
-    configuration = Configuration(host="https://testwapi.zarban.io")
-    configuration.access_token = ACCESS_TOKEN
-    api_client = ApiClient(configuration)
-    api_instance = DefaultApi(api_client)
+    cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+    cfg.access_token = ACCESS_TOKEN
+    api_client = wallet.ApiClient(cfg)
+    loans_api = wallet.LoansApi(api_client)
 
     # Set the X-Child-User header in the api_client's default headers
     api_client.default_headers['X-Child-User'] = "your_child_username"
@@ -51,7 +53,7 @@ def main():
 
     # Preview repayment
     print("Previewing loan repayment...")
-    preview_response = repay_loan(api_instance, LOAN_ID, intent="Preview")
+    preview_response = repay_loan(loans_api, LOAN_ID, intent="Preview")
 
     if preview_response:
         print("\nRepayment preview details:")
@@ -60,15 +62,15 @@ def main():
 
         # Ask for user confirmation
         confirm = input("\nDo you want to proceed with the repayment? (y/n): ")
-        
+
         if confirm.lower() == 'y':
             # Proceed with actual repayment
-            repayment_response = repay_loan(api_instance, LOAN_ID)
-            
+            repayment_response = repay_loan(loans_api, LOAN_ID)
+
             if repayment_response:
                 print("repayment in progress...")
                 while True:
-                    loan_details = api_instance.loans_id_get(LOAN_ID)
+                    loan_details = loans_api.get_loan_details(LOAN_ID)
                     if loan_details.state.LocaleEn == "Loan settled":
                         print("\nLoan repayment successful!")
                         get_loan_status(loan_details, LOAN_ID)
@@ -79,7 +81,7 @@ def main():
                     time.sleep(10)
                 # Get updated loan status
                 print("\nUpdated loan status:")
-                get_loan_status(api_instance, LOAN_ID)
+                get_loan_status(loan_details, LOAN_ID)
         else:
             print("Repayment cancelled.")
     else:
@@ -87,6 +89,7 @@ def main():
 
     # Remove the X-Child-User header after use
     api_client.default_headers.pop('X-Child-User', None)
+
 
 if __name__ == "__main__":
     main()

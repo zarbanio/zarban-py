@@ -34,7 +34,7 @@ def login_example():
 
         return api_response.token
 
-    except wallet.exceptions.ApiException as e:
+    except wallet.ApiException as e:
         logger.error(f"Exception when calling auth_api->login_with_email_and_password: {e}")
         logger.error(f"Status code: {e.status}")
         logger.error(f"Reason: {e.reason}")
