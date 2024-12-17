@@ -56,9 +56,12 @@ class MethodParameters(object):
         self._value = None
         self.discriminator = None
 
-        self.to = to
-        self.calldata = calldata
-        self.value = value
+        if to is not None:
+            self.to = to
+        if calldata is not None:
+            self.calldata = calldata
+        if value is not None:
+            self.value = value
 
     @property
     def to(self):
@@ -78,8 +81,6 @@ class MethodParameters(object):
         :param to: The to of this MethodParameters.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and to is None:  # noqa: E501
-            raise ValueError("Invalid value for `to`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 to is not None and not re.search(r'^(0x)?[0-9a-fA-F]{40}$', to)):  # noqa: E501
             raise ValueError(r"Invalid value for `to`, must be a follow pattern or equal to `/^(0x)?[0-9a-fA-F]{40}$/`")  # noqa: E501
@@ -104,8 +105,6 @@ class MethodParameters(object):
         :param calldata: The calldata of this MethodParameters.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and calldata is None:  # noqa: E501
-            raise ValueError("Invalid value for `calldata`, must not be `None`")  # noqa: E501
 
         self._calldata = calldata
 
@@ -127,8 +126,6 @@ class MethodParameters(object):
         :param value: The value of this MethodParameters.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and value is None:  # noqa: E501
-            raise ValueError("Invalid value for `value`, must not be `None`")  # noqa: E501
 
         self._value = value
 
