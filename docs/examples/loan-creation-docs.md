@@ -25,10 +25,10 @@ The SDK requires two forms of authentication:
 2. A child user header (optional, depending on use case)
 
 ```python
-configuration = Configuration(host="https://testwapi.zarban.io")
-configuration.access_token = "your_access_token_here"
-api_client = ApiClient(configuration)
-api_client.default_headers['X-Child-User'] = "your_child_username"
+    cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+    cfg.access_token = ACCESS_TOKEN
+    api_client = wallet.ApiClient(cfg)
+    api_client.default_headers['X-Child-User'] = "your_child_username"
 ```
 
 ## Core Functions
@@ -41,7 +41,7 @@ Creates a new loan using the specified parameters.
 
 **Parameters:**
 
-- `api_instance`: DefaultApi instance
+- `loans_api`: LoansApi instance
 - `plan_name`: str - Name of the loan plan (Currently supports "DAIA" and "DAIB")
 - `collateral`: str - Amount of collateral
 - `debt`: str - Amount of debt
@@ -57,7 +57,7 @@ Creates a new loan using the specified parameters.
 
 ```python
 loan_id = create_loan(
-    api_instance,
+    loans_api,
     plan_name="DAIA",
     collateral="1000",
     debt="",
@@ -68,19 +68,19 @@ loan_id = create_loan(
 
 ### Checking Loan Status
 
-#### `loan_Status(api_instance, loan_id)`
+#### `loan_Status(loans_api, loan_id)`
 
-Retrieves and displays the current status of a loan.
+Retrieves and displays the current state of a loan.
 
 **Parameters:**
 
-- `api_instance`: DefaultApi instance
+- `loans_api`: LoansApi instance
 - `loan_id`: str - The ID of the loan to check
 
 **Returns:**
 Loan details object containing:
 
-- Status
+- State
 - Collateral amount
 - Debt amount
 - Interest rate
@@ -89,7 +89,7 @@ Loan details object containing:
 **Example:**
 
 ```python
-loan_details = loan_Status(api_instance, loan_id)
+loan_details = loan_Status(loans_api, loan_id)
 ```
 
 ## API Endpoints
@@ -142,8 +142,8 @@ Example error handling:
 
 ```python
 try:
-    loan_details = api_instance.loans_id_get(loan_id)
-except ApiException as e:
+    loan_details = loans_api.get_loan_details(loan_id)
+except wallet.ApiException as e:
     print(f"Error: {e}")
 ```
 
@@ -151,19 +151,20 @@ except ApiException as e:
 
 ```python
 def main():
-    # Setup
-    ACCESS_TOKEN = "your_access_token_here"
-    configuration = Configuration(host="https://testwapi.zarban.io")
-    configuration.access_token = ACCESS_TOKEN
-    api_client = ApiClient(configuration)
-    api_instance = DefaultApi(api_client)
+    # Replace with your actual access token
+    ACCESS_TOKEN = "your_child_username"
 
-    # Set child user header
+    # Setup API client
+    cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+    cfg.access_token = ACCESS_TOKEN
+    api_client = wallet.ApiClient(cfg)
+    loans_api = wallet.LoansApi(api_client)
+
+    # Set the X-Child-User header in the api_client's default headers
     api_client.default_headers['X-Child-User'] = "your_child_username"
-
     # Create loan
     loan_id = create_loan(
-        api_instance,
+        loans_api,
         "DAIA",    # plan name
         "1000",    # collateral
         "",        # debt
@@ -173,7 +174,7 @@ def main():
 
     # Check status
     if loan_id:
-        loan_details = loan_Status(api_instance, loan_id)
+        loan_details = loan_status(loans_api, loan_id)
 ```
 
 ## Best Practices
@@ -198,4 +199,4 @@ For additional support or bug reports, please contact the Zarban support team.
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/wallet/docs/DefaultApi.md)
+- [API Reference Documentation](../wallet)

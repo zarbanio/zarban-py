@@ -94,11 +94,7 @@ pip install logging
 ## Code Example
 
 ```python
-from zarban.wallet.openapi_client.configuration import Configuration
-from zarban.wallet.openapi_client.api_client import ApiClient
-from zarban.wallet.openapi_client.api.default_api import DefaultApi
-from zarban.wallet.openapi_client.models import AuthLoginRequest
-from zarban.wallet.openapi_client.exceptions import ApiException
+import zarban.wallet.openapi_client as wallet
 
 import logging
 
@@ -107,40 +103,35 @@ def login_example():
     logger = logging.getLogger(__name__)
 
     # Create and configure the Configuration object
-    configuration = Configuration(
-        host="https://testwapi.zarban.io"
+    cfg = wallet.Configuration(
+        host="https://testwapi.zarban.io"  # Use the working API URL
     )
 
     # Create an instance of the ApiClient with the configuration
-    api_client = ApiClient(configuration)
+    api_client = wallet.ApiClient(cfg)
 
     # Create an instance of the DefaultApi using the ApiClient
-    api_instance = DefaultApi(api_client)
+    auth_api = wallet.AuthApi(api_client)
 
     # Prepare the login request data
-    login_request = AuthLoginRequest(
+    login_request = wallet.LoginRequest(
         email="user@example.com",
-        password="your_secure_password"
+        password="your_secured_password"
     )
 
     try:
         # Call the login API
-        api_response = api_instance.auth_login_post(login_request)
+        api_response = auth_api.login_with_email_and_password(login_request)
         logger.info("Login successful!")
         logger.info(f"Token: {api_response.token}")
 
         # After successful login, you can set the access token for future authenticated requests
-        configuration.access_token = api_response.token
-
-        # If the response includes user information, log it
-        if hasattr(api_response, 'user'):
-            logger.info(f"User ID: {api_response.user.id}")
-            logger.info(f"User Email: {api_response.user.email}")
+        cfg.access_token = api_response.token
 
         return api_response.token
 
-    except ApiException as e:
-        logger.error(f"Exception when calling DefaultApi->auth_login_post: {e}")
+    except wallet.ApiException as e:
+        logger.error(f"Exception when calling auth_api->login_with_email_and_password: {e}")
         logger.error(f"Status code: {e.status}")
         logger.error(f"Reason: {e.reason}")
         logger.error(f"Error message: {e.body}")
@@ -167,8 +158,12 @@ if __name__ == "__main__":
 2. **Configure API Client**
 
    ```python
-   configuration = Configuration(host="https://testwapi.zarban.io")
-   api_client = ApiClient(configuration)
+    cfg = wallet.Configuration(
+        host="https://testwapi.zarban.io"
+    )
+
+    # Create an instance of the ApiClient with the configuration
+    api_client = wallet.ApiClient(cfg)
    ```
 
    Creates and configures the API client with the test environment endpoint.
@@ -176,26 +171,26 @@ if __name__ == "__main__":
 3. **Initialize API Instance**
 
    ```python
-   api_instance = DefaultApi(api_client)
+    auth_api = wallet.AuthApi(api_client)
    ```
 
-   Creates an instance of the DefaultApi for making API calls.
+   Creates an instance of the AuthApi for making API calls.
 
 4. **Prepare Login Request**
 
    ```python
-   login_request = AuthLoginRequest(
-       email="user@example.com",
-       password="your_secure_password"
-   )
+    login_request = wallet.LoginRequest(
+        email="user@example.com",
+        password="your_secured_password"
+    )
    ```
 
    Creates a login request object with user credentials.
 
 5. **Handle Authentication**
    ```python
-   api_response = api_instance.auth_login_post(login_request)
-   configuration.access_token = api_response.token
+    api_response = auth_api.login_with_email_and_password(login_request)
+    cfg.access_token = api_response.token
    ```
    Sends login request and stores the authentication token for future requests.
 
@@ -232,7 +227,7 @@ The example includes comprehensive error handling based on the API specification
 ```python
 try:
     api_response = api_instance.auth_login_post(login_request)
-except ApiException as e:
+except wallet.ApiException as e:
     if e.status == 400:
         logger.error("Bad Request: Check input parameters")
     elif e.status == 401:
@@ -298,5 +293,5 @@ logging.basicConfig(
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/wallet/docs/DefaultApi.md)
+- [API Reference Documentation](../wallet)
 - [Security Best Practices](security-best-practices.md)

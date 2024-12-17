@@ -63,15 +63,15 @@ The Wallet API handles user authentication and wallet management operations.
 The Zarban Service API provides access to core DeFi protocol operations.
 
 ```python
-from zarban.wallet.openapi_client import DefaultApi, ApiClient, Configuration
+import zarban.wallet.openapi_client as wallet
 
 # Initialize the client
-configuration = Configuration()
-api_client = ApiClient(configuration)
-api_instance = DefaultApi(api_client)
+cfg         = wallet.Configuration()
+api_client  = wallet.ApiClient(cfg)
+auth_api    = wallet.AuthApi(api_client)
 
 # Make a simple API call
-response = api_instance.some_method()
+response = auth_api.some_method()
 print(response)
 ```
 
@@ -84,38 +84,35 @@ For detailed usage examples, see our [Examples Documentation](docs/examples).
 Here's a simple example to sign up and get started with Zarban:
 
 ```python
-from zarban.wallet.openapi_client.configuration import Configuration
-from zarban.wallet.openapi_client.api_client import ApiClient
-from zarban.wallet.openapi_client.api import DefaultApi
-from zarban.wallet.openapi_client.models import SignUpRequest
-from zarban.wallet.openapi_client.exceptions import ApiException
+import zarban.wallet.openapi_client as wallet
+
 
 def signup_example():
     # Create and configure the Configuration object
-    configuration = Configuration(
-        host="https://wapi.zarban.io"
+    cfg = wallet.Configuration(
+        host="https://testwapi.zarban.io"
     )
 
     # Create an instance of the ApiClient with the configuration
-    api_client = ApiClient(configuration)
+    api_client = wallet.ApiClient(configuration=cfg)
 
-    # Create an instance of the DefaultApi using the ApiClient
-    api_instance = DefaultApi(api_client)
+    # Create an instance of the AuthApi using the api_client
+    auth_api = wallet.AuthApi(api_client)
 
     # Prepare the signup request data
-    signup_request = SignUpRequest(
+    signup_request = wallet.SignUpRequest(
         email="user@example.com",
         password="yourSecuredPassword",
     )
 
     try:
         # Call the signup API
-        api_response = api_instance.auth_signup_post(signup_request)
-        print("Confirmation link sent successful!")
+        api_response = auth_api.signup_with_email_and_password(signup_request)
+        print("Confirmation link sent successfully!")
         print(f"Message: {api_response.messages}")
 
-    except ApiException as e:
-        print(f"Exception when calling DefaultApi->auth_signup_post: {e}")
+    except wallet.ApiException as e:
+        print(f"Exception when calling auth_api->signup_with_email_and_password: {e}")
         print(f"Error message: {e.body}")
 
 if __name__ == "__main__":
@@ -129,10 +126,10 @@ The SDK can be configured with various options to customize its behavior and aut
 ### Basic Configuration
 
 ```python
-from zarban.wallet.openapi_client import Configuration
+import zarban.wallet.openapi_client as wallet
 
 # Basic configuration with just the host URL
-config = Configuration(host="https://wapi.zarban.io")
+cfg = wallet.Configuration(host="https://wapi.zarban.io")
 ```
 
 ### Authentication Options
@@ -142,7 +139,7 @@ The SDK supports multiple authentication methods:
 1. API Key Authentication:
 
 ```python
-config = Configuration(
+cfg = Configuration(
     host="https://wapi.zarban.io",
     api_key={"APIKeyAuth": "your-api-key-here"},
     # Optional: Add prefix like 'Bearer' for the API key
@@ -153,7 +150,7 @@ config = Configuration(
 2. Basic Authentication:
 
 ```python
-config = Configuration(
+cfg = Configuration(
     host="https://wapi.zarban.io",
     username="your-username",
     password="your-password"
@@ -163,7 +160,7 @@ config = Configuration(
 ### Advanced Configuration
 
 ```python
-config = Configuration(
+cfg = Configuration(
     host="https://wapi.zarban.io",
     api_key={"APIKeyAuth": "your-api-key-here"},
     # Discard unknown properties from server responses
@@ -185,14 +182,13 @@ config = Configuration(
 ## Error Handling
 
 ```python
-from zarban.service.openapi_client import StableCoinSystemApi, ApiClient, Configuration
-from zarban.service.openapi_client.exceptions import ApiException
+import zarban.service.openapi_client as service
 
 try:
-    configuration = Configuration(host="https://api.zarban.io")
-    api_client = ApiClient(configuration)
-    stable_coin_system_api = StableCoinSystemApi(api_client)
-    response = StableCoinSystemApi.some_method()
+    cfg = service.Configuration(host="https://api.zarban.io")
+    api_client = service.ApiClient(cfg)
+    stable_coin_system_api = service.StableCoinSystemApi(api_client)
+    response = stable_coin_system_api.some_method()
 except ApiException as e:
     print(f"An error occurred: {e}")
 ```
