@@ -25,9 +25,9 @@ The SDK requires two forms of authentication:
 2. A child user header (optional, depending on use case)
 
 ```python
-configuration = Configuration(host="https://testwapi.zarban.io")
-configuration.access_token = "your_access_token_here"
-api_client = ApiClient(configuration)
+cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+cfg.access_token = "your_access_token_here"
+api_client = wallet.ApiClient(cfg)
 api_client.default_headers['X-Child-User'] = "your_child_username"
 ```
 
@@ -35,13 +35,13 @@ api_client.default_headers['X-Child-User'] = "your_child_username"
 
 ### Repaying a Loan
 
-#### `repay_loan(api_instance, loan_id, intent="Repay")`
+#### `repay_loan(loans_api, loan_id, intent="Repay")`
 
 Handles loan repayment operations, including preview and actual repayment.
 
 **Parameters:**
 
-- `api_instance`: DefaultApi instance
+- `loans_api`: wallet.LoansApi instance
 - `loan_id`: str - Unique identifier for the loan
 - `intent`: str - Either "Preview" or "Repay"
 
@@ -54,10 +54,10 @@ Handles loan repayment operations, including preview and actual repayment.
 
 ```python
 # Preview repayment
-preview_response = repay_loan(api_instance, "loan123", intent="Preview")
+preview_response = repay_loan(loans_api, "loan123", intent="Preview")
 
 # Execute repayment
-repayment_response = repay_loan(api_instance, "loan123", intent="Repay")
+repayment_response = repay_loan(loans_api, "loan123", intent="Repay")
 ```
 
 ### Checking Loan Status
@@ -86,7 +86,7 @@ Loan details object containing:
 **Example:**
 
 ```python
-loan_details = api_instance.loans_id_get(loan_id)
+loan_details = loans_api.get_loan_details(loan_id)
 status = get_loan_status(loan_details, loan_id)
 ```
 
@@ -152,9 +152,9 @@ Example error handling:
 
 ```python
 try:
-    api_response = api_instance.loans_repay_post(repay_request)
-except ApiException as e:
-    print(f"Exception when calling DefaultApi->loans_repay_post: %s\n" % e)
+    loans_response = loans_api.repay_loan(repay_request)
+except wallet.ApiException as e:
+    print(f"Exception when calling LoansApi->repay_loan: %s\n" % e)
 ```
 
 ## Complete Usage Example
@@ -163,16 +163,18 @@ except ApiException as e:
 def main():
     # Setup
     ACCESS_TOKEN = "your_access_token_here"
-    configuration = Configuration(host="https://testwapi.zarban.io")
-    configuration.access_token = ACCESS_TOKEN
-    api_client = ApiClient(configuration)
-    api_instance = DefaultApi(api_client)
+
+    # Setup API client
+    cfg = wallet.Configuration(host="https://testwapi.zarban.io")
+    cfg.access_token = ACCESS_TOKEN
+    api_client = wallet.ApiClient(cfg)
+    loans_api = wallet.LoansApi(api_client)
 
     # Set child user header
     api_client.default_headers['X-Child-User'] = "your_child_username"
 
     # Preview repayment
-    preview_response = repay_loan(api_instance, "loan123", intent="Preview")
+    preview_response = repay_loan(loans_api, "loan123", intent="Preview")
 
     if preview_response:
         print("\nRepayment preview details:")
@@ -180,12 +182,12 @@ def main():
         print(f"Debt to be repaid: {preview_response.debt}")
 
         # Execute repayment if preview successful
-        repayment_response = repay_loan(api_instance, "loan123")
+        repayment_response = repay_loan(loans_api, "loan123")
 
         if repayment_response:
             # Monitor repayment status
             while True:
-                loan_details = api_instance.loans_id_get("loan123")
+                loan_details = loans_api.get_loan_details("loan123")
                 if loan_details.state.LocaleEn == "Loan settled":
                     print("\nLoan repayment successful!")
                     break
