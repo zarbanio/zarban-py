@@ -57,6 +57,9 @@ class ChainActivityStepData(object):
         'message': 'message'
     }
 
+    discriminator_value_class_map = {
+    }
+
     def __init__(self, type=None, label=None, gas_use_estimate=None, gas_fee_estimate=None, method_parameters=None, name=None, typed_data=None, hash=None, message=None, local_vars_configuration=None):  # noqa: E501
         """ChainActivityStepData - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
@@ -72,7 +75,7 @@ class ChainActivityStepData(object):
         self._typed_data = None
         self._hash = None
         self._message = None
-        self.discriminator = None
+        self.discriminator = 'type'
 
         self.type = type
         self.label = label
@@ -299,6 +302,12 @@ class ChainActivityStepData(object):
             raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
 
         self._message = message
+
+    def get_real_child_model(self, data):
+        """Returns the real base class specified by the discriminator"""
+        discriminator_key = self.attribute_map[self.discriminator]
+        discriminator_value = data[discriminator_key]
+        return self.discriminator_value_class_map.get(discriminator_value)
 
     def to_dict(self):
         """Returns the model properties as a dict"""
