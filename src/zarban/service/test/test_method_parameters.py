@@ -43,6 +43,9 @@ class TestMethodParameters(unittest.TestCase):
             )
         else :
             return MethodParameters(
+                to = 'a',
+                calldata = '0',
+                value = '0',
         )
 
     def testMethodParameters(self):
