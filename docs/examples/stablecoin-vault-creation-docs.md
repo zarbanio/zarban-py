@@ -26,7 +26,7 @@ Retrieves available collateral types from the system.
 
 **Parameters:**
 
-- `api (StableCoinSystemApi)`: The API client instance
+- `api (service.StableCoinSystemApi)`: The API client instance
 
 **Returns:**
 
@@ -46,7 +46,7 @@ Converts human-readable amounts to blockchain native format.
 
 **Parameters:**
 
-- `api (StableCoinSystemApi)`: The API client instance
+- `api (service.StableCoinSystemApi)`: The API client instance
 - `symbol (str)`: Asset symbol (e.g., "ETH", "ZAR")
 - `amount (float)`: Human-readable amount
 
@@ -68,7 +68,7 @@ Retrieves transaction steps for vault creation.
 
 **Parameters:**
 
-- `api (StableCoinSystemApi)`: The API client instance
+- `api (service.StableCoinSystemApi)`: The API client instance
 - `ilk_name (str)`: Collateral type name
 - `symbol (str)`: Asset symbol
 - `wallet_address (str)`: User's wallet address
@@ -77,7 +77,7 @@ Retrieves transaction steps for vault creation.
 
 **Returns:**
 
-- `tuple`: (number_of_steps, step_number, steps)
+- `dict`: (number_of_steps, step_number, steps)
 
 ### 4. Transaction Management
 
@@ -117,9 +117,9 @@ PRIVATE_KEY = "your_private_key"
 WALLET_ADDRESS = get_address_from_private_key(PRIVATE_KEY)
 
 # Setup API client
-configuration = Configuration(host="https://testapi.zarban.io")
-api_client = ApiClient(configuration)
-stable_coin_system_api = StableCoinSystemApi(api_client)
+cfg = service.Configuration(host="https://testapi.zarban.io")
+api_client = service.ApiClient(cfg)
+stable_coin_system_api = service.StableCoinSystemApi(api_client)
 
 # Setup Web3
 w3 = Web3(Web3.HTTPProvider(HTTPS_RPC_URL))
@@ -131,7 +131,7 @@ COLLATERAL_AMOUNT = 0.01
 LOAN_AMOUNT = 1000
 
 # Create vault
-num_of_steps, step_number, steps = get_vault_tx_steps(
+api_response = get_vault_tx_steps(
     stable_coin_system_api,
     ILK_NAME,
     SYMBOL,
@@ -170,7 +170,7 @@ num_of_steps, step_number, steps = get_vault_tx_steps(
 ```python
 try:
     # Vault creation code
-except ApiException as e:
+except service.ApiException as e:
     print(f"Response body: {beautify_json(e.body)}")
 except Exception as e:
     print(f"Unexpected error: {e}")
