@@ -227,7 +227,7 @@ The example includes comprehensive error handling based on the API specification
 ```python
 try:
     api_response = api_instance.auth_login_post(login_request)
-except ApiException as e:
+except wallet.ApiException as e:
     if e.status == 400:
         logger.error("Bad Request: Check input parameters")
     elif e.status == 401:
