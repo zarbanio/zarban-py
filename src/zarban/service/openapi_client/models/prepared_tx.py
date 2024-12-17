@@ -34,7 +34,6 @@ class PreparedTx(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'type': 'str',
         'label': 'dict(str, str)',
         'gas_use_estimate': 'int',
         'gas_fee_estimate': 'dict(str, str)',
@@ -42,60 +41,28 @@ class PreparedTx(object):
     }
 
     attribute_map = {
-        'type': 'type',
         'label': 'label',
         'gas_use_estimate': 'gasUseEstimate',
         'gas_fee_estimate': 'gasFeeEstimate',
         'method_parameters': 'methodParameters'
     }
 
-    def __init__(self, type=None, label=None, gas_use_estimate=None, gas_fee_estimate=None, method_parameters=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, label=None, gas_use_estimate=None, gas_fee_estimate=None, method_parameters=None, local_vars_configuration=None):  # noqa: E501
         """PreparedTx - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._type = None
         self._label = None
         self._gas_use_estimate = None
         self._gas_fee_estimate = None
         self._method_parameters = None
         self.discriminator = None
 
-        self.type = type
         self.label = label
         self.gas_use_estimate = gas_use_estimate
         self.gas_fee_estimate = gas_fee_estimate
         self.method_parameters = method_parameters
-
-    @property
-    def type(self):
-        """Gets the type of this PreparedTx.  # noqa: E501
-
-
-        :return: The type of this PreparedTx.  # noqa: E501
-        :rtype: str
-        """
-        return self._type
-
-    @type.setter
-    def type(self, type):
-        """Sets the type of this PreparedTx.
-
-
-        :param type: The type of this PreparedTx.  # noqa: E501
-        :type: str
-        """
-        if self.local_vars_configuration.client_side_validation and type is None:  # noqa: E501
-            raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
-        allowed_values = ["PreparedTx"]  # noqa: E501
-        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
-            raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
-                .format(type, allowed_values)
-            )
-
-        self._type = type
 
     @property
     def label(self):

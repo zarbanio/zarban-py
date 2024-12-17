@@ -34,7 +34,6 @@ class ChainActivityStepData(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'type': 'str',
         'label': 'dict(str, str)',
         'gas_use_estimate': 'int',
         'gas_fee_estimate': 'dict(str, str)',
@@ -46,7 +45,6 @@ class ChainActivityStepData(object):
     }
 
     attribute_map = {
-        'type': 'type',
         'label': 'label',
         'gas_use_estimate': 'gasUseEstimate',
         'gas_fee_estimate': 'gasFeeEstimate',
@@ -60,13 +58,12 @@ class ChainActivityStepData(object):
     discriminator_value_class_map = {
     }
 
-    def __init__(self, type=None, label=None, gas_use_estimate=None, gas_fee_estimate=None, method_parameters=None, name=None, typed_data=None, hash=None, message=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, label=None, gas_use_estimate=None, gas_fee_estimate=None, method_parameters=None, name=None, typed_data=None, hash=None, message=None, local_vars_configuration=None):  # noqa: E501
         """ChainActivityStepData - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._type = None
         self._label = None
         self._gas_use_estimate = None
         self._gas_fee_estimate = None
@@ -77,44 +74,18 @@ class ChainActivityStepData(object):
         self._message = None
         self.discriminator = 'type'
 
-        self.type = type
         self.label = label
         self.gas_use_estimate = gas_use_estimate
         self.gas_fee_estimate = gas_fee_estimate
         self.method_parameters = method_parameters
-        self.name = name
-        self.typed_data = typed_data
-        self.hash = hash
-        self.message = message
-
-    @property
-    def type(self):
-        """Gets the type of this ChainActivityStepData.  # noqa: E501
-
-
-        :return: The type of this ChainActivityStepData.  # noqa: E501
-        :rtype: str
-        """
-        return self._type
-
-    @type.setter
-    def type(self, type):
-        """Sets the type of this ChainActivityStepData.
-
-
-        :param type: The type of this ChainActivityStepData.  # noqa: E501
-        :type: str
-        """
-        if self.local_vars_configuration.client_side_validation and type is None:  # noqa: E501
-            raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
-        allowed_values = ["PersonalSignRequest"]  # noqa: E501
-        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
-            raise ValueError(
-                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
-                .format(type, allowed_values)
-            )
-
-        self._type = type
+        if name is not None:
+            self.name = name
+        if typed_data is not None:
+            self.typed_data = typed_data
+        if hash is not None:
+            self.hash = hash
+        if message is not None:
+            self.message = message
 
     @property
     def label(self):
@@ -228,8 +199,6 @@ class ChainActivityStepData(object):
         :param name: The name of this ChainActivityStepData.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and name is None:  # noqa: E501
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
         self._name = name
 
@@ -251,8 +220,6 @@ class ChainActivityStepData(object):
         :param typed_data: The typed_data of this ChainActivityStepData.  # noqa: E501
         :type: TypedData
         """
-        if self.local_vars_configuration.client_side_validation and typed_data is None:  # noqa: E501
-            raise ValueError("Invalid value for `typed_data`, must not be `None`")  # noqa: E501
 
         self._typed_data = typed_data
 
@@ -276,8 +243,6 @@ class ChainActivityStepData(object):
         :param hash: The hash of this ChainActivityStepData.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and hash is None:  # noqa: E501
-            raise ValueError("Invalid value for `hash`, must not be `None`")  # noqa: E501
         if (self.local_vars_configuration.client_side_validation and
                 hash is not None and not re.search(r'^(0x)?[0-9a-fA-F]{64}$', hash)):  # noqa: E501
             raise ValueError(r"Invalid value for `hash`, must be a follow pattern or equal to `/^(0x)?[0-9a-fA-F]{64}$/`")  # noqa: E501
@@ -304,8 +269,6 @@ class ChainActivityStepData(object):
         :param message: The message of this ChainActivityStepData.  # noqa: E501
         :type: str
         """
-        if self.local_vars_configuration.client_side_validation and message is None:  # noqa: E501
-            raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
 
         self._message = message
 
