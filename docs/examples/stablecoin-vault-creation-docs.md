@@ -266,4 +266,4 @@ For additional support or bug reports, please contact the Zarban support team or
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/service/docs/StableCoinSystemApi.md)
+- [API Reference Documentation](../service/StableCoinSystemApi.md)

@@ -247,5 +247,5 @@ except wallet.ApiException as e:
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/wallet/docs/DefaultApi.md)
+- [API Reference Documentation](../wallet)
 - [Security Best Practices](security-best-practices.md)

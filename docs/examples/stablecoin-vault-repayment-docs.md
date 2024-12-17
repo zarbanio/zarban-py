@@ -46,14 +46,14 @@ Retrieves transaction steps for vault repayment.
 
 **Parameters:**
 
-- `api (StableCoinSystemApi)`: The API client instance
+- `api (service.StableCoinSystemApi)`: The API client instance
 - `wallet_address (str)`: User's wallet address
 - `vault_id (int)`: The ID of the vault to be repaid
 - `amount (float)`: The repayment amount
 
 **Returns:**
 
-- `tuple`: (number_of_steps, step_number, steps)
+- `dict`: (number_of_steps, step_number, steps)
 
 ### 3. Transaction Management
 
@@ -92,9 +92,9 @@ PRIVATE_KEY = "your_private_key"
 WALLET_ADDRESS = get_address_from_private_key(PRIVATE_KEY)
 
 # Setup API client
-configuration = Configuration(host="https://testapi.zarban.io")
-api_client = ApiClient(configuration)
-stable_coin_system_api = StableCoinSystemApi(api_client)
+cfg = service.Configuration(host="https://testapi.zarban.io")
+api_client = ApiClient(cfg)
+stable_coin_system_api = service.StableCoinSystemApi(api_client)
 
 # Setup Web3
 w3 = Web3(Web3.HTTPProvider(HTTPS_RPC_URL))
@@ -138,7 +138,7 @@ num_of_steps, step_number, steps = get_vault_tx_steps(
 ```python
 try:
     # Vault repayment code
-except ApiException as e:
+except service.ApiException as e:
     print(f"Response body: {beautify_json(e.body)}")
 except Exception as e:
     print(f"Unexpected error: {e}")
@@ -231,4 +231,4 @@ For additional support or bug reports, please contact the Zarban support team or
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/service/docs/StableCoinSystemApi.md)
+- [API Reference Documentation](../service/StableCoinSystemApi.md)

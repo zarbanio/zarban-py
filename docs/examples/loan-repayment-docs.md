@@ -218,5 +218,5 @@ For additional support or bug reports, please contact the Zarban support team.
 
 ## See Also
 
-- [API Reference Documentation](../src/zarban/wallet/docs/DefaultApi.md)
+- [API Reference Documentation](../wallet)
 - [Loan Creation Documentation](./loan-creation-docs.md)
