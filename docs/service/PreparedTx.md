@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | 
 **label** | **dict(str, str)** |  | 
 **gas_use_estimate** | **int** |  | 
 **gas_fee_estimate** | **dict(str, str)** |  | 
