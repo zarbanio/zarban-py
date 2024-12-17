@@ -34,23 +34,56 @@ class PersonalSignRequest(object):
                             and the value is json key in definition.
     """
     openapi_types = {
+        'type': 'str',
         'message': 'str'
     }
 
     attribute_map = {
+        'type': 'type',
         'message': 'message'
     }
 
-    def __init__(self, message=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, type=None, message=None, local_vars_configuration=None):  # noqa: E501
         """PersonalSignRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
+        self._type = None
         self._message = None
         self.discriminator = None
 
+        self.type = type
         self.message = message
+
+    @property
+    def type(self):
+        """Gets the type of this PersonalSignRequest.  # noqa: E501
+
+
+        :return: The type of this PersonalSignRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this PersonalSignRequest.
+
+
+        :param type: The type of this PersonalSignRequest.  # noqa: E501
+        :type: str
+        """
+        if self.local_vars_configuration.client_side_validation and type is None:  # noqa: E501
+            raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
+        allowed_values = ["PersonalSignRequest"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
+                .format(type, allowed_values)
+            )
+
+        self._type = type
 
     @property
     def message(self):
