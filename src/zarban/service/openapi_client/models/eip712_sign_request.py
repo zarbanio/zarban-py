@@ -34,31 +34,64 @@ class EIP712SignRequest(object):
                             and the value is json key in definition.
     """
     openapi_types = {
+        'type': 'str',
         'name': 'str',
         'typed_data': 'TypedData',
         'hash': 'str'
     }
 
     attribute_map = {
+        'type': 'type',
         'name': 'name',
         'typed_data': 'typedData',
         'hash': 'hash'
     }
 
-    def __init__(self, name=None, typed_data=None, hash=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, type=None, name=None, typed_data=None, hash=None, local_vars_configuration=None):  # noqa: E501
         """EIP712SignRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
+        self._type = None
         self._name = None
         self._typed_data = None
         self._hash = None
         self.discriminator = None
 
+        self.type = type
         self.name = name
         self.typed_data = typed_data
         self.hash = hash
+
+    @property
+    def type(self):
+        """Gets the type of this EIP712SignRequest.  # noqa: E501
+
+
+        :return: The type of this EIP712SignRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this EIP712SignRequest.
+
+
+        :param type: The type of this EIP712SignRequest.  # noqa: E501
+        :type: str
+        """
+        if self.local_vars_configuration.client_side_validation and type is None:  # noqa: E501
+            raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
+        allowed_values = ["EIP712SignRequest"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
+                .format(type, allowed_values)
+            )
+
+        self._type = type
 
     @property
     def name(self):
